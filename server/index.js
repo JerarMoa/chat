@@ -38,7 +38,8 @@ io.on('connection', async (socket) => {
 
   socket.on('chat message', async (msg) => {
     let result
-    const username = socket.handshake.auth.username ?? 'anonymous'
+    const username = socket.handshake.auth.username !== undefined ? socket.handshake.auth.username : 'anonymous';
+
     console.log({ username })
     try {
       result = await db.execute({
