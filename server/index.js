@@ -58,7 +58,8 @@ io.on('connection', async (socket) => {
     try {
       const results = await db.execute({
         sql: 'SELECT id, content, user FROM messages WHERE id > ?',
-        args: [socket.handshake.auth.serverOffset ?? 0]
+        args: [typeof socket.handshake.auth.serverOffset !== 'undefined' ? socket.handshake.auth.serverOffset : 0]
+
       })
 
       results.rows.forEach(row => {
